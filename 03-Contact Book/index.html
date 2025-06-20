@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Book</title>
+
+  <link rel="stylesheet" href="05-contact-book.css">
+</head>
+<body>
+
+  <div class="header">
+    <div class="title">
+      Contact Book
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <div class="contact-form">
+      <div class="inp-name">
+        <p>Name :</p><input type="text" id="js-inpName">
+      </div>
+      <div class="inp-num">
+        <p>Phone Number :</p><input type="number" id="js-inpNum">
+      </div>
+    </div>
+
+    <div class="btns">
+      <div class="add">
+        <button class="add-btn" onclick="addContact()">Add</button>
+      </div>
+    </div>
+
+    <div class="main-table">
+      <div class="number-list">
+        <div class="name-nums"> 
+        </div>
+      </div>
+    </div>
+
+  </div>
+  
+  <script src="05-contact-book.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  background-color: rgb(20, 20, 20);
+  font-family: 'Courier New', Courier, monospace;
+  color: white;
+}
+
+.header{
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+.random-text{
+  border: solid white;
+  border-radius: 10px;
+  width: 700px;
+  margin: 20px;
+  padding: 20px;
+  height: 140px;
+}
+
+#user-text{
+  border: solid 2px rgb(255, 255, 255);
+  box-shadow: 0 0 20px white;
+  border-radius: 10px;
+  width: 700px;
+  margin: 20px;
+  padding: 20px;
+  font-size: 16px;
+  resize: none;
+  line-height: 1.5;
+}
+
+.timer-box,
+.text-box,
+.type-text,
+.speed-box,
+.restart-box{
+  display: flex;
+  justify-content: center;
+}
+
+.js-timer,
+.speed-box,
+.restart-btn{
+  margin-top: 30px;
+  font-size: x-large;
+}
+
+.restart-btn{
+  border: solid white;
+  width: 150px;
+  height: 50px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.restart-btn:hover{
+  transform: scale(1.09);
+  box-shadow: 0 0 20px white;
+}
+
+.speed-box{
+  gap: 20px;
+}
+
+.js-show-speed{
+  padding-right: 20px;
+  border-right: solid;
+}

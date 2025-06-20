@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Bank</title>
+  <link rel="stylesheet" href="04-JS-bank.css">
+</head>
+<body>
+
+    <div class="head-sec">
+      <div class="bank-name"><b>JavaScript Bank</b></div>
+      <div class="js-account-name">Unknown?</div>
+    </div>
+
+    <h1 align="'center">Welcome to the Bank of Javascript</h1>
+
+    <div class="signup">
+      <div class="form">
+        <div class="account-open">
+          <h1>Bank Account opening Form</h1>
+
+          <p class="names-inp">Name: </p><input type="text" id="accountName" placeholder="Enter your name" />
+
+          <p class="names-inp">Initial Deposit: </p><input type="number" id="initialDeposit" placeholder= "Enter initial deposit" />
+          
+          <div class="creating-btn">
+            <button type="submit" class="created" onclick="accountCreated()">Create</button>
+          </div>          
+        </div>
+      </div>
+    </div>
+
+    <div class="js-work">
+      <div class="service">
+        <div class="section js-balance">
+          <div class="center-btn">
+            <button onclick="showBalance()">Show Balance</button>
+          </div>
+
+          <div class="js-balance-info">
+            <h2>Account Summary</h2>
+            <p id="accountHolderName">Name: </p>
+            <p id="accountBalance">Balance: ₹0</p>
+          </div>
+
+          <div class="js-back-btns">
+            <button class="mini-btns" onclick="back()">&#8592; Back</button>
+          </div>
+        </div>
+
+        <div class="section js-deposit">
+          <div class="center-btn">
+            <button onclick="deposit()">Deposit</button>
+          </div>
+
+          <div class="js-depositing">
+            How Much money you want to deposit :<input type="number" id="depositMoney">&#8377;
+
+            <button class="mini-btns" onclick="depositingMoney()">Submit</button>
+          </div>
+        </div>
+
+        <div class="section js-withdraw">
+          <div class="center-btn">
+            <button onclick="withdraw()">Withdraw</button>
+          </div>
+
+          <div class="js-withdrawing">
+            <p>How Much money you want to Withdraw :</p><input type="number" id="withdrawMoney">&#8377;
+
+            <button class="mini-btns" onclick="withdrawingMoney()">Get</button>
+          </div>
+        </div>     
+      </div>
+
+      <div class="section js-createAccount">
+        <button onclick="createAccount()">Create Account</button>
+      <div>
+    </div>
+
+    <script src="04-js-bank.js"></script>
+
+</body>
+</html>

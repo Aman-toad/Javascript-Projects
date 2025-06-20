@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Test</title>
+
+  <link rel="stylesheet" href="07-speed-type.css">
+</head>
+<body>
+
+  <div class="header">
+    <div class="title">
+      Speed Typing Test
+    </div>
+  </div>
+
+  <div class="text-box">
+    <div class="random-text">
+      Hello world
+    </div>
+  </div>
+
+  <div class="type-text">
+    <textarea id="user-text" rows="4" cols="50" wrap="soft" placeholder="Type Here..."></textarea>
+  </div>
+
+  <div class="timer-box">
+    <div class="js-timer">
+      Time: 00 s
+    </div>
+  </div>
+
+  <div class="speed-box">
+    <div class="js-show-speed">Speed: 0 WPM</div>
+    <div class="js-show-accuracy">Accuracy: 0 %</div>
+  </div>
+
+  <div class="restart-box">
+    <button class="restart-btn" onclick="restart()">Restart</button>
+  </div>
+  
+  <script src="07-speed-type.js"></script>
+</body>
+</html>

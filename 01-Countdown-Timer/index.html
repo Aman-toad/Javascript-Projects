@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Timer</title>
+
+  <style>
+
+    body{
+      color: white;
+      background-color: #191818f0;
+      font-family: 'Courier New', Courier, monospace,Arial, Helvetica, sans-serif;
+    }
+
+    .wrapper{
+      display: flex;
+      justify-content: center;
+    }
+
+    .display{
+      margin-top: 150px;
+    }
+
+    h1{
+      margin-bottom: 40px;
+      font-size: 40px;
+    }
+    .set-time{
+      width: 230px;
+      height: 50px;
+      font-size: x-large;
+      border-radius: 40px;
+      margin-right: 30px;
+    }
+
+    .start-btn{
+      width: 180px;
+      height: 50px;
+      font-size: larger;
+      border-radius: 40px;
+    }
+
+    .countdown-display{
+      margin-top: 50px;
+      font-size: 70px;
+    }
+    
+    .mid{
+      display: flex;
+      justify-content: center;
+    }
+    input,button{
+      border:none;
+    }
+    
+    input:hover,
+    button:hover{
+      border-style: none;
+      cursor: pointer;
+      transition: 0.3s;
+      border: none;
+      box-shadow: 0 0 20px white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="display">
+      <h1 align="center">Countdown Timer</h1>
+      
+      <div class="mid">
+        <input type="datetime-local" class="set-time js-time-sets">
+
+        <button class="start-btn" onclick="startCountdown()">Start Countdown</button>
+      </div>
+
+      <h2 align="center" class="countdown-display">00:00:00:00</h2>
+    </div>
+  </div>
+
+  <script>
+    
+    function startCountdown(){
+
+      const inputTime = document.querySelector('.js-time-sets').value;       
+      let currentTime = new Date().getTime();
+      let selectedTime = new Date(inputTime).getTime(); 
+      let timeDifference = selectedTime - currentTime; 
+
+      const interval = setInterval(() => {
+        timeDifference -= 1000;
+
+        const days = Math.floor(timeDifference / (1000*60*60*24));
+        const hours = Math.floor((timeDifference % (1000*60*60*24)) / (1000*60*60));
+        const minutes = Math.floor((timeDifference % (1000*60*60)) / (1000*60));
+        const seconds = Math.floor((timeDifference % (1000*60)) / (1000));
+
+        const CountdownDisplay = document.querySelector('.countdown-display').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`
+
+        if (timeDifference <=  0){
+          clearInterval(interval);
+          const CountdownDisplay = document.querySelector('.countdown-display').innerHTML = 'Time is over!'
+        }
+      },1000)
+
+      localStorage.setItem('endTime', selectedTime);
+      const savedEndTime = localStorage.getItem('endTime');
+
+      if (savedEndTime){
+        const timeDifference = new Date(savedEndTime).getTime() - new Date().getTime();
+      }
+
+      localStorage.removeItem('endTime');
+    }
+
+    
+
+  </script>
+</body>
+</html>

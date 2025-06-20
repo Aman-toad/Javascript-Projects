@@ -1,0 +1,130 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  background: #000;
+  color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.header{
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.title{
+  font-size: 35px;
+}
+
+.wrapper{
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+#js-inpName,
+#js-inpNum{
+  padding-left: 10px;
+  font-size: 20px;
+  width: 300px;
+  height: 50px;
+  border: solid 2px white;
+  border-radius: 20px;
+  text-shadow: 0 0 10px rgb(25, 94, 255);
+  box-shadow: 0 0 20px white;
+}
+
+li{
+  margin: 20px auto 20px 10px;
+  display: inline-block;
+}
+
+.number-list{
+  border: solid white;
+  margin-top: 20px;
+  width: 600px;
+}
+
+button{
+  border: solid 1px white;
+  width: 70px;
+  height: 30px;
+  border-radius: 10px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.add{
+  margin-top: 20px;
+}
+
+.add-btn{
+  width: 200px;
+  height: 50px;
+  margin-top: 20px;
+  margin-left: 50px;
+  font-size: larger; 
+  transition: 0.3s;    
+}
+
+.thanks-msg{
+  transition: 0.3s;
+}
+
+.add-btn:hover,
+.remove-btn:hover,
+.thanks-msg:hover{
+  transform: scale(1.09);
+  box-shadow: 0 0 20px rgb(0, 169, 254);
+  color: black;
+  background-color: rgba(229, 229, 226, 0.852);
+}
+
+.remove-btn:hover{
+  box-shadow: 0 0 20px rgb(255, 0, 0);
+}
+.contact-list{
+  display: inline-block;
+}
+
+.name-nums{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.added-names,
+.added-nums{
+  border: solid 1px white;
+  padding:20px
+}
+
+.added-btns{
+  padding-top: 15px;
+  border: solid 1px white;
+}
+
+.thanks-msg{
+  margin-top: 15px;
+}
+
+.msg{
+  display: flex;
+  justify-content: center;
+  font-size: x-large;
+  width: 620px;
+  height: 50px;
+  margin-left: 90px;
+}
+
+.contact-form,
+.btns,
+.main-table{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+p{
+  margin-left: 10px;
+}
