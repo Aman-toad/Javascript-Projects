@@ -1,12 +1,35 @@
 let contacts = JSON.parse(localStorage.getItem("book")) || [];
 
-function addContact(){
+async function addContact(){
   const inpName = document.getElementById("js-inpName").value;
   const inpNum = document.getElementById("js-inpNum").value;
+  const displayApiData = document.getElementById('displayApiData');
 
   if(inpName==='' && inpNum===''){
     alert('Please fill the Name and Number section')
   }else {
+    // Api Post Feature 
+    displayApiData.style.display = 'block';
+    displayApiData.textContent = 'Sending Data To the Server...';
+    try{
+      const res = await fetch('https://jsonplaceholder.typicode.com/posts',{
+        method:'POST',
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+          name: inpName,
+          phone : inpNum
+        })
+      });
+
+      const data = await res.json();
+      displayApiData.textContent = `Thanks, the data with name ${data.name} and "${data.phone}" is successfully stored your (fake ID: ${data.id})`;
+    }catch (err){
+      displayApiData.textContent = 'failed to send feedback';
+      console.error(err);    
+    }
+
     const newContact = {name: inpName, phone: inpNum};
     contacts.push(newContact);
 
