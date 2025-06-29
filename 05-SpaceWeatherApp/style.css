@@ -104,7 +104,7 @@ body {
   display: block;
 }
 
-.hero {
+.main {
   height: 100vh;
   position: relative;
   display: flex;
@@ -167,14 +167,14 @@ body {
   }
 }
 
-.hero-content {
+.main-content {
   text-align: center;
   z-index: 10;
   max-width: 800px;
   padding: 0 2rem;
 }
 
-.hero-title {
+.main-title {
   font-family: "Orbitron", monospace;
   font-size: 4rem;
   font-weight: 900;
@@ -196,7 +196,7 @@ body {
   }
 }
 
-.hero-subtitle {
+.main-subtitle {
   font-size: 1.5rem;
   margin-bottom: 3rem;
   color: rgba(255, 255, 255, 0.8);
@@ -438,7 +438,7 @@ body {
 }
 
 /* Planets Page */
-.planets-hero {
+.planets-main {
   padding: 8rem 0 4rem;
   text-align: center;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -496,7 +496,7 @@ body {
   line-height: 1.6;
 }
 
-.planet-btn{
+.planet-btn {
   padding: 10px;
   font-size: 15px;
   border-radius: 10px;
@@ -506,21 +506,21 @@ body {
   cursor: pointer;
 }
 
-.planet-btn:hover{
+.planet-btn:hover {
   transform: scale(1.05);
   transition: 0.23s ease-in-out;
   text-shadow: 0 0 10px white;
   text-decoration: underline;
 }
 
-.planet-btn:active{
+.planet-btn:active {
   color: #0a0a0a;
   background-color: #ddd;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .hero-title {
+  .main-title {
     font-size: 2.5rem;
   }
 
@@ -548,7 +548,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  .hero-title {
+  .main-title {
     font-size: 2rem;
   }
 
@@ -559,4 +559,74 @@ body {
   .container {
     padding: 0 1rem;
   }
+}
+
+/* script class create styles */
+
+.loading-animation {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.loading-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #64ffda;
+  animation: loading-bounce 1.4s ease-in-out infinite both;
+}
+
+.data-item {
+  margin-bottom: 0.8rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.data-label {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.data-value {
+  font-size: 1.1rem;
+}
+
+.flare-class {
+  font-weight: bold;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.flare-class.extreme {
+  background: rgba(255, 78, 78, 0.2);
+  color: #ff4e4e;
+}
+
+.flare-class.severe {
+  background: rgba(255, 143, 0, 0.2);
+  color: #ff8f00;
+}
+
+.flare-class.moderate {
+  background: rgba(251, 191, 36, 0.2);
+  color: #fbbf24;
+}
+
+.flare-class.minor {
+  background: rgba(74, 222, 128, 0.2);
+  color: #4ade80;
+}
+
+.flare-class.minimal {
+  background: rgba(96, 165, 250, 0.2);
+  color: #60a5fa;
+}
+
+.error-message {
+  color: #f87171;
+  font-style: italic;
 }
