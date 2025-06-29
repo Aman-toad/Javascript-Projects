@@ -245,7 +245,7 @@ async function loadSolarFlareData() {
     }
 
   } catch (err) {
-    console.error("Error loading solar flare data:", error)
+    console.error("Error loading solar flare data:", err)
     document.querySelector(".solar-flare .card-data").innerHTML = `
       <p class="error-message">Error loading solar flare data. Please try again later.</p>
     `
