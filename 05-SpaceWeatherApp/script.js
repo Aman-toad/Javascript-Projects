@@ -6,41 +6,10 @@ const CONFIG = {
   AURORA_API: "https://api.auroras.live/v1/forecast/",
   SOLAR_WIND_API: "https://services.swpc.noaa.gov/products/solar-wind.json",
   DONKI_GST_API: "https://api.nasa.gov/DONKI/GST",
+  DONKI_EVENT_API: "https://api.nasa.gov/DONKI/notifications",
   NASA_API_KEY: "hCAcPQwJ55fyfc1ApHrkJdOv2qPJf9vtsbaIbFyQ",
   SOLAR_SYSTEM_API: "https://api.le-systeme-solaire.net/rest/bodies",
 }
-
-// Add CSS for loading animation
-const style = document.createElement("style")
-style.textContent = `
-    .loading-animation {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-        margin-bottom: 10px;
-    }
-    
-    .loading-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #64ffda;
-        animation: loading-bounce 1.4s ease-in-out infinite both;
-    }
-    
-    .loading-dot:nth-child(1) { animation-delay: -0.32s; }
-    .loading-dot:nth-child(2) { animation-delay: -0.16s; }
-    
-    @keyframes loading-bounce {
-        0%, 80%, 100% {
-            transform: scale(0);
-        }
-        40% {
-            transform: scale(1);
-        }
-    }
-`
-document.head.appendChild(style)
 
 // planet api request getting the data
 async function fetchPlanetData(planetName, targetId) {
@@ -69,6 +38,7 @@ function displayPlanetData(planet, containerId) {
     <p><strong>Average Temperature:</strong> ${planet.avgTemp} K</p>
   `;
 }
+
 
 window.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", () => {
@@ -113,6 +83,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // space weather data
   loadSpaceWeatherData();
+
+  // event recent data
+  loadRecentEvents();
 })
 
 async function loadAstronomyPictureOfDay() {
@@ -194,13 +167,36 @@ function formatDisplayDate(dateString) {
   return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
 }
 
+//time ago 
+function timeAgo(dateString) {
+  const date = new Date(dateString)
+  const now = new Date()
+  const seconds = Math.floor((now - date) / 1000)
+  const intervals = [
+    { label: "seconds", seconds: 60 },
+    { label: "minutes", seconds: 60 * 60 },
+    { label: "hours", seconds: 60 * 60 * 24 },
+    { label: "days", seconds: 60 * 60 * 24 * 30 },
+    { label: "months", seconds: 60 * 60 * 24 * 30 * 12 },
+    { label: "years", seconds: 60 * 60 * 24 * 30 * 12 * 10 },
+  ]
+  for (let i = 0; i < intervals.length; i++) {
+    if (seconds < intervals[i].seconds) {
+      const count = Math.floor(seconds / intervals[i - 1].seconds)
+      return `${count} ${intervals[i - 1].label}${count !== 1 ? "s" : ""} ago`
+    }
+  }
+  const count = Math.floor(seconds / intervals[intervals.length - 1].seconds)
+  return `${count} ${intervals[intervals.length - 1].label}${count !== 1 ? "s" : ""} ago`
+}
+
 // load solar flare data
 async function loadSolarFlareData() {
   try {
     const dateRange = getDateRange(7)
     const res = await fetch(`${CONFIG.DONKI_FLARE_API}?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}&api_key=${CONFIG.NASA_API_KEY}`)
 
-    const data = await res.json();    
+    const data = await res.json();
 
     const solarFlareCard = document.querySelector(".solar-flare .card-data");
     const statusIndicator = document.querySelector(".solar-flare .status-indicator");
@@ -347,8 +343,6 @@ async function loadGeomagneticStormData() {
     const res = await fetch(`${CONFIG.DONKI_GST_API}?startDate=${getDateRange.startDate}&endDate=${getDateRange.endDate}&api_key=${CONFIG.NASA_API_KEY}`)
 
     const data = await res.json();
-    console.log(data);
-    
 
     const geomagneticCard = document.querySelector('.geomagnetic .card-data')
     const statusIndicator = document.querySelector(".geomagnetic .status-indicator")
@@ -408,6 +402,93 @@ async function loadGeomagneticStormData() {
         <div class="loading-dot"></div>
         <div class="loading-dot"></div>
         <div class="loading-dot"></div>
+      </div>
+    `
+  }
+}
+
+// Recent Events
+async function loadRecentEvents() {
+  try {
+    const dateRange = getDateRange(5); // increase the day iyw
+    const res = await fetch(`${CONFIG.DONKI_EVENT_API}?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}&api_key=${CONFIG.NASA_API_KEY}`)
+
+    const data = await res.json();
+    const eventsTimeline = document.querySelector(".events-timeline");
+
+    eventsTimeline.innerHTML = `
+      <div class="event-item">
+        <div class="event-date">Error</div>
+        <div class="event-content">
+          <h4>Data Unavailable</h4>
+          <p class="error-message">Error loading recent events. Please try again later.</p>
+        </div>      
+    `
+
+    if (data.length > 0) {
+      data.sort((a, b) => new Date(b.messageIssueTime) - new Date(a.messageIssueTime))
+
+      // 5 most recent events
+      const recentEvents = data.slice(0, 5)
+
+      eventsTimeline.innerHTML = ""
+
+      // Add events 
+      recentEvents.forEach((event) => {
+        const eventItem = document.createElement("div")
+        eventItem.className = "event-item"
+
+        let eventIcon = "🔔"
+        let eventTypeDisplay = "Notification"
+
+        if (event.messageType.includes("FLR")) {
+          eventIcon = "🌟"
+          eventTypeDisplay = "Solar Flare"
+        } else if (event.messageType.includes("CME")) {
+          eventIcon = "💨"
+          eventTypeDisplay = "Coronal Mass Ejection"
+        } else if (event.messageType.includes("GST")) {
+          eventIcon = "🧲"
+          eventTypeDisplay = "Geomagnetic Storm"
+        } else if (event.messageType.includes("SEP")) {
+          eventIcon = "☢️"
+          eventTypeDisplay = "Solar Energetic Particle"
+        } else if (event.messageType.includes("IPS")) {
+          eventIcon = "🌀"
+          eventTypeDisplay = "Interplanetary Shock"
+        }
+
+        eventItem.innerHTML = `
+          <div class="event-date">${timeAgo(event.messageIssueTime)}</div>
+          <div class="event-content">
+            <h4>${eventIcon} ${eventTypeDisplay}</h4>
+            <p>${event.messageBody.split(".")[0]}.</p>
+            <small>${formatDisplayDate(event.messageIssueTime)}</small>
+          </div>
+        `
+
+        eventsTimeline.appendChild(eventItem)
+      })
+    } else {
+      eventsTimeline.innerHTML = `
+        <div class="event-item">
+          <div class="event-date">Now</div>
+          <div class="event-content">
+            <h4>No Recent Events</h4>
+            <p>No space weather events have been reported in the last 30 days.</p>
+          </div>
+        </div>
+      `
+    }
+  } catch (err) {
+    console.error("Error loading recent events:", err)
+    document.querySelector(".events-timeline").innerHTML = `
+      <div class="event-item">
+        <div class="event-date">Error</div>
+        <div class="event-content">
+          <h4>Data Unavailable</h4>
+          <p class="error-message">Error loading recent events. Please try again later.</p>
+        </div>
       </div>
     `
   }

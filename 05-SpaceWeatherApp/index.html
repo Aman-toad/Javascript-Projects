@@ -16,7 +16,7 @@
     <nav class="navbar">
       <div class="nav-container">
         <div class="logo-space">
-          <div class="logo-placeholder">LOGO</div>
+          <div class="logo-placeholder">SolarScope</div>
         </div>
         <div>
           <ul class="nav-menu">
@@ -25,7 +25,8 @@
           </ul>
         </div>
         <div class="space-button">
-          <button class="cosmic-btn">Explore Space</button>
+          <a href="https://www.isro.gov.in/" target="_blank"><button class="cosmic-btn">Explore Space</button></a>
+          
         </div>
       </div>
     </nav>
@@ -39,20 +40,19 @@
         <div class="main-content">
           <h1 class="main-title">Space Weather Hub</h1>
           <p class="main-subtitle">Monitoring the Cosmic Environment</p>
+          <div class="moon-satellite">
+            <div class="moon"></div>
+            <div class="satellite"></div>
+          </div>
           <div class="solar-system-info">
-            <div class="orbit-animation">
-              <div class="planet planet-1"></div>
-              <div class="planet planet-2"></div>
-              <div class="planet planet-3"></div>
-            </div>
             <p class="system-text">Real-time solar system monitoring and space weather forecasting</p>
             <p>"Space data provided by <strong><a href="https://api.nasa.gov/" target="_blank">NASA Open APIs</a></strong>"</p>
           </div>
         </div>
-        
+
       </section>
 
-       <!-- Solar Eclipse Section  -->
+      <!-- Solar Eclipse Section  -->
       <section class="eclipse-section">
         <div class="container">
           <h2 class="section-title">Solar Eclipses & Phenomena</h2>
@@ -86,12 +86,23 @@
               <div class="card-icon">🌟</div>
               <h3>Solar Flare Activity</h3>
               <div class="card-data">
-                <!-- API data will be inserted here -->
                 <p class="data-placeholder">Loading solar flare data...</p>
               </div>
               <div class="card-status">
                 <span class="status-indicator"></span>
                 <span>Monitoring</span>
+              </div>
+            </div>
+
+            <div class="weather-card geomagnetic">
+              <div class="card-icon">🧲</div>
+              <h3>Geomagnetic Storm Level</h3>
+              <div class="card-data">
+                <p class="data-placeholder">Loading storm level...</p>
+              </div>
+              <div class="card-status">
+                <span class="status-indicator"></span>
+                <span>Quiet</span>
               </div>
             </div>
 
@@ -111,7 +122,7 @@
             <div class="weather-card solar-wind">
               <div class="card-icon">💨</div>
               <h3>Solar Wind Speed</h3>
-              <div class="card-data">                
+              <div class="card-data">
                 <p class="data-placeholder"></p>
               </div>
               <div class="card-status">
@@ -120,18 +131,7 @@
               </div>
             </div>
 
-            <div class="weather-card geomagnetic">
-              <div class="card-icon">🧲</div>
-              <h3>Geomagnetic Storm Level</h3>
-              <div class="card-data">
-                <!-- API data will be inserted here -->
-                <p class="data-placeholder">Loading storm level...</p>
-              </div>
-              <div class="card-status">
-                <span class="status-indicator"></span>
-                <span>Quiet</span>
-              </div>
-            </div>
+
           </div>
         </div>
       </section>
@@ -141,30 +141,24 @@
         <div class="container">
           <h2 class="section-title">Recent Solar System Events</h2>
           <div class="events-timeline">
+            <!-- prototype general data to show  -->
             <div class="event-item">
               <div class="event-date">Today</div>
               <div class="event-content">
-                <h4>Solar Flare Detected</h4>
-                <p>M-class solar flare observed from active region AR3234</p>
-              </div>
-            </div>
-            <div class="event-item">
-              <div class="event-date">Yesterday</div>
-              <div class="event-content">
-                <h4>Aurora Activity Increased</h4>
-                <p>Enhanced aurora visibility reported in northern regions</p>
-              </div>
-            </div>
-            <div class="event-item">
-              <div class="event-date">2 days ago</div>
-              <div class="event-content">
-                <h4>Coronal Mass Ejection</h4>
-                <p>CME detected heading towards Earth, arrival expected in 48 hours</p>
+                <p class="eventData"></p>
+                <h2>!! This Fetching Takes Time !!</h2>
+                <div class="loading-animation event-fetching-animation">
+                  <h4>Fetching Events Data</h4>
+                  <div class="loading-dot"></div>
+                  <div class="loading-dot"></div>
+                  <div class="loading-dot"></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+    </div>
+    </section>
     </div>
 
     <script src="script.js"></script>
