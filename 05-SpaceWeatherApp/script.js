@@ -52,6 +52,7 @@ async function fetchPlanetData(planetName, targetId) {
     });
 
     const data = await response.json();
+
     displayPlanetData(data, targetId);
   } catch (err) {
     textContainer.textContent = 'failed to fetch the data! Try Again !!'
@@ -155,11 +156,11 @@ async function loadSpaceWeatherData() {
 
   loadSolarFlareData();
 
-  loadAuroraForecast();
+  // loadAuroraForecast();
 
-  loadSolarWindData();
+  // loadSolarWindData();
 
-  // loadGeomagneticStormData();
+  loadGeomagneticStormData();
 }
 
 function getDateRange(days) {
@@ -199,7 +200,7 @@ async function loadSolarFlareData() {
     const dateRange = getDateRange(7)
     const res = await fetch(`${CONFIG.DONKI_FLARE_API}?startDate=${dateRange.startDate}&endDate=${dateRange.endDate}&api_key=${CONFIG.NASA_API_KEY}`)
 
-    const data = await res.json();
+    const data = await res.json();    
 
     const solarFlareCard = document.querySelector(".solar-flare .card-data");
     const statusIndicator = document.querySelector(".solar-flare .status-indicator");
@@ -322,12 +323,12 @@ async function loadAuroraForecast() {
 
 // load solar wind speed data
 async function loadSolarWindData() {
-  try{
+  try {
     const res = await fetch(CONFIG.SOLAR_WIND_API);
     const data = await res.json();
 
   }
-  catch(err){
+  catch (err) {
     console.error("Error loading Wind Data", err);
     document.querySelector(".solar-wind .card-data").innerHTML = `
       <p class="error-message">⚠️ Unable to load solar wind speed data. The source may have changed or is currently unavailable. Please try again later.</p>
@@ -337,6 +338,77 @@ async function loadSolarWindData() {
         <div class="loading-dot"></div>
       </div>
     `
+  }
+}
+
+async function loadGeomagneticStormData() {
+  try {
+    const dateRange = getDateRange(7);
+    const res = await fetch(`${CONFIG.DONKI_GST_API}?startDate=${getDateRange.startDate}&endDate=${getDateRange.endDate}&api_key=${CONFIG.NASA_API_KEY}`)
+
+    const data = await res.json();
+    console.log(data);
     
+
+    const geomagneticCard = document.querySelector('.geomagnetic .card-data')
+    const statusIndicator = document.querySelector(".geomagnetic .status-indicator")
+    const statusText = document.querySelector(".geomagnetic .card-status span:last-child")
+
+    if (data.length > 0) {
+      data.sort((a, b) => new Date(b.startTime) - new Date(a.startTime))
+
+      const latestStorm = data[0]
+
+      const kpIndex = latestStorm.allKpIndex.reduce((max, kp) => Math.max(max, kp.kpIndex), 0)
+      let stormLevel = "G1 (Minor)"
+      let stormColor = "#fbbf24"
+
+      if (kpIndex >= 9) {
+        stormLevel = "G5 (Extreme)"
+        stormColor = "#ef4444"
+      } else if (kpIndex >= 8) {
+        stormLevel = "G4 (Severe)"
+        stormColor = "#f97316"
+      } else if (kpIndex >= 7) {
+        stormLevel = "G3 (Strong)"
+        stormColor = "#fb923c"
+      } else if (kpIndex >= 6) {
+        stormLevel = "G2 (Moderate)"
+        stormColor = "#fbbf24"
+      }
+
+      statusIndicator.style.background = stormColor
+      statusText.textContent = stormLevel.split(" ")[0]
+
+      // Format the data for display
+      geomagneticCard.innerHTML = `
+        <div class="data-item">
+          <span class="data-label">Storm Level:</span>
+          <span class="data-value">${stormLevel}</span>
+        </div>
+        <div class="data-item">
+          <span class="data-label">Start Time:</span>
+          <span class="data-value">${formatDisplayDate(latestStorm.startTime)}</span>
+        </div>
+        <div class="data-item">
+          <span class="data-label">Max Kp Index:</span>
+          <span class="data-value">${kpIndex}</span>
+        </div>
+        <div class="data-item">
+          <span class="data-label">Duration:</span>
+          <span class="data-value">${Math.round((new Date(latestStorm.endTime) - new Date(latestStorm.startTime)) / 3600000)} hours</span>
+        </div>
+      `}
+
+  } catch (err) {
+    console.error("Error loading Wind Data", err);
+    document.querySelector(".solar-wind .card-data").innerHTML = `
+      <p class="error-message">⚠️ Unable to load solar wind speed data. The source may have changed or is currently unavailable. Please try again later.</p>
+      <div class="loading-animation">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+      </div>
+    `
   }
 }
