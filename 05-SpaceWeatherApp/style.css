@@ -562,6 +562,12 @@ body {
 }
 
 /* script class create styles */
+.apod-attribution{
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  text-align: end;
+}
 
 .loading-animation {
   display: flex;

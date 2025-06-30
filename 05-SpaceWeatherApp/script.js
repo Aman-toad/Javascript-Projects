@@ -1,15 +1,13 @@
 // all needed api's
-
 const CONFIG = {
   APOD_API: "https://api.nasa.gov/planetary/apod",
   DONKI_FLARE_API: "https://api.nasa.gov/DONKI/FLR",
-  AURORA_API: "https://services.swpc.noaa.gov/products/aurora-forecast.json",
+  // AURORA_API: "https://services.swpc.noaa.gov/products/aurora-forecast.json", // Expired
+  AURORA_API: "https://api.auroras.live/v1/forecast/",
   SOLAR_WIND_API: "https://services.swpc.noaa.gov/products/solar-wind.json",
   DONKI_GST_API: "https://api.nasa.gov/DONKI/GST",
   NASA_API_KEY: "hCAcPQwJ55fyfc1ApHrkJdOv2qPJf9vtsbaIbFyQ",
   SOLAR_SYSTEM_API: "https://api.le-systeme-solaire.net/rest/bodies",
-  PLANET_API: "https://api.api-ninjas.com/v1/planets",
-  NINJA_API_KEY: ""
 }
 
 // Add CSS for loading animation
@@ -54,7 +52,6 @@ async function fetchPlanetData(planetName, targetId) {
     });
 
     const data = await response.json();
-    console.log(data);
     displayPlanetData(data, targetId);
   } catch (err) {
     textContainer.textContent = 'failed to fetch the data! Try Again !!'
@@ -122,19 +119,21 @@ async function loadAstronomyPictureOfDay() {
     const res = await fetch(`${CONFIG.APOD_API}?api_key=${CONFIG.NASA_API_KEY}`)
     const data = await res.json();
 
-    if (data.medi_type === "image") {
+    if (data.media_type === "image") {
       const mainSection = document.querySelector('.main')
       mainSection.style.backgroundImage = `linear-gradient(rgba(10, 10, 20, 0.8), rgba(10, 10, 20, 0.9)), url(${data.url})`
       mainSection.style.backgroundSize = 'cover';
       mainSection.style.backgroundPosition = 'center';
 
       // image attributes
+      const solarSystemINfo = document.querySelector('.solar-system-info');
       const attribution = document.createElement("div")
       attribution.className = "apod-attribution";
       attribution.innerHTML = `
           <p>Background: NASA APOD - ${data.title}</p>
+          <p>Date: ${data.date}</p>
         `
-      mainSection.appendChild(attribution)
+      solarSystemINfo.appendChild(attribution)
     }
   } catch (err) {
     console.error("Error Loading APOD: ", err)
@@ -156,9 +155,9 @@ async function loadSpaceWeatherData() {
 
   loadSolarFlareData();
 
-  // loadAuroraForecast();
+  loadAuroraForecast();
 
-  // loadSolarWindData();
+  loadSolarWindData();
 
   // loadGeomagneticStormData();
 }
@@ -194,6 +193,7 @@ function formatDisplayDate(dateString) {
   return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
 }
 
+// load solar flare data
 async function loadSolarFlareData() {
   try {
     const dateRange = getDateRange(7)
@@ -253,3 +253,90 @@ async function loadSolarFlareData() {
 }
 
 // load aurora forecast
+async function loadAuroraForecast() {
+  try {
+    const res = await fetch(CONFIG.AURORA_API);
+    const data = await res.json();
+
+    const auroraCard = document.querySelector(".aurora .card-data");
+    const statusIndicator = document.querySelector(".aurora .status-indicator");
+    const statusText = document.querySelector(".aurora .card-status . span:last-child");
+
+    if (data && data.coordinates) {
+      const observations = data.coordinates.map((coord) => coord[2]);
+      const maxActivity = Math.max(...observations);
+
+      //activity level color
+      let activityLevel = "Low";
+      let activityColor = "#4ade80";
+
+      if (maxActivity > 70) {
+        activityLevel = "Extreme";
+        activityColor = "#ef4444"
+      } else if (maxActivity > 50) {
+        activityLevel = "High"
+        activityColor = "#f97316"
+      } else if (maxActivity > 30) {
+        activityLevel = "Moderate"
+        activityColor = "#fbbf24"
+      }
+
+      statusIndicator.style.background = activityColor;
+      statusText.textContent = activityLevel;
+
+      // displaying the data in page
+      auroraCard.innerHTML = `
+        <div class="data-item">
+          <span class="data-label">Activity Level:</span>
+          <span class="data-value">${activityLevel}</span>
+        </div>
+        <div class="data-item">
+          <span class="data-label">Observation Time:</span>
+          <span class="data-value">${formatDisplayDate(data.Observation_Time)}</span>
+        </div>
+        <div class="data-item">
+          <span class="data-label">Forecast:</span>
+          <span class="data-value">Visible in ${activityLevel === "Low" ? "high latitude regions" : activityLevel === "Moderate" ? "northern US and Canada" : "mid-latitudes"}</span>
+        </div>
+        <div class="aurora-map">
+          <img src="https://services.swpc.noaa.gov/images/aurora-forecast-northern-hemisphere.jpg" alt="Aurora Forecast Map" class="forecast-map">
+          <small>Northern Hemisphere Aurora Forecast</small>
+        </div>
+      `
+    } else {
+      auroraCard.innerHTML = `<p>No Aurora Forecast Data Available.</p>`
+      statusText.textContent = "Unknown"
+    }
+  } catch (err) {
+    console.error("Error in Loading the Forecast Data:", err)
+    document.querySelector(".aurora .card-data").innerHTML = `
+      <p class="error-message">⚠️ Unable to load Aurora Forecast data. The source may have changed or is currently unavailable. Please try again later.</p>
+      <div class="loading-animation">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+      </div>
+    `
+  }
+}
+
+// load solar wind speed data
+async function loadSolarWindData() {
+  try{
+    const res = await fetch(CONFIG.SOLAR_WIND_API);
+    const data = await res.json();
+
+  }
+  catch(err){
+    console.error("Error loading Wind Data", err);
+    document.querySelector(".solar-wind .card-data").innerHTML = `
+      <p class="error-message">⚠️ Unable to load solar wind speed data. The source may have changed or is currently unavailable. Please try again later.</p>
+      <div class="loading-animation">
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+        <div class="loading-dot"></div>
+      </div>
+    `
+    
+  }
+}
