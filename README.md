@@ -1,48 +1,76 @@
-# 🧠 JavaScript Projects Collection
+<h1 align="center">🧠 JavaScript Projects Collection</h1>
 
-This repository contains a collection of mini JavaScript projects created for learning, practicing, and mastering core JavaScript concepts. Each project focuses on different features like DOM manipulation, event handling, localStorage, timers, and more — all bundled into clean, interactive, and fully functional web apps.
+<p align="center">
+  <img src="https://img.shields.io/badge/Language-JavaScript-yellow?style=for-the-badge&logo=javascript" />
+  <img src="https://img.shields.io/badge/Frontend-HTML%20%26%20CSS-blue?style=for-the-badge&logo=html5" />
+  <img src="https://img.shields.io/badge/Practice-DOM%20%26%20Logic-orange?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge" />
+</p>
 
 ---
 
-## 📋 Project Overview
+## 📋 Overview
 
-The purpose of this repository is to:
+This repository contains a collection of **mini JavaScript projects** created to:
 
-- Strengthen vanilla JavaScript skills
-- Practice building small, functional web apps
-- Demonstrate real-world JS logic in action
-- Keep projects organized and showcase them for internship/job opportunities
+- 🚀 Strengthen **vanilla JavaScript** skills  
+- 🔁 Practice real-world app logic  
+- 🧪 Experiment with **DOM**, **events**, and **storage**  
+- 📦 Showcase mini-projects for internships or job portfolios  
 
 ---
 
 ## 🚀 Projects Included
 
-1. **[Countdown Timer](https://aman-toad.github.io/Javascript-Projects/01-Countdown-Timer/)**  
-   Countdown to a target date/time using setInterval and dynamic DOM updates.
+| # | Project | Description |
+|--|---------|-------------|
+| 1️⃣ | [Countdown Timer](https://aman-toad.github.io/Javascript-Projects/01-Countdown-Timer/) | Countdown to a target date/time using `setInterval` and dynamic DOM updates. |
+| 2️⃣ | [JavaScript Bank App](https://aman-toad.github.io/Javascript-Projects/02-JavaScript%20Bank/) | Simulates deposit, withdrawal, and transaction tracking with JS logic. |
+| 3️⃣ | [Contact Book App](https://aman-toad.github.io/Javascript-Projects/03-Contact%20Book/) | Add, delete, and save contacts using `localStorage`. |
+| 4️⃣ | [Typing Speed Game](https://aman-toad.github.io/Javascript-Projects/04-Type%20Test/) | Real-time typing speed test with random sentence generator and accuracy check. |
 
-2. **[JavaScript Bank App](https://aman-toad.github.io/Javascript-Projects/02-JavaScript%20Bank/)**  
-   Simulates basic banking operations like deposit, withdraw, and transaction history.
-
-3. **[Contact Book App](https://aman-toad.github.io/Javascript-Projects/03-Contact%20Book/)**  
-   Add, delete, and store contacts persistently using `localStorage`.
-
-4. **[Typing Speed Game](https://aman-toad.github.io/Javascript-Projects/04-Type%20Test/)**  
-   Measures user typing speed and accuracy with a random sentence generator.
-
-*(More projects will be added soon...)*
+> 📌 *More projects coming soon...*
 
 ---
 
-## 🛠️ Technologies Used
+## 🛠️ Tech Stack
 
-- **HTML** – Structure  
-- **CSS** – Styling & layout  
-- **JavaScript** – Functionality, logic, and DOM control  
-- **localStorage** – Persistent browser data (where required)
+- **HTML5** — structure & semantics  
+- **CSS3** — design & responsive layout  
+- **JavaScript (ES6+)** — logic, events, DOM, localStorage  
 
 ---
 
-## 🔗 How to View Projects
+## 📂 How to Use
 
-Each project resides in its own folder with an `index.html` file. You can directly open them via the links above or:
+Each project lives in its own folder and contains:
+- `index.html`
+- `style.css` (sometimes)
+- `script.js`
+
+You can:
+- View live via the hosted links above 🔗
+- Or download/clone the repo and open in your browser locally 🌐
+
+---
+
+## 🔮 Future Additions
+
+- 🎲 Dice Roller Game  
+- 📅 To-Do App   
+- 📧 Form validation & storage
+- and more ....
+
+---
+
+## 📬 Connect with Me
+
+- GitHub: [Aman-toad](https://github.com/Aman-toad)
+- Portfolio: [Live Site](https://aman-toad.github.io/Portfolio/)
+- LinkedIn: [Your LinkedIn](https://www.linkedin.com/in/aman-singh-a00toad/)
+
+---
+
+> 💡 “Consistency beats talent when talent doesn't show up.”  
+> ⭐ If you like this repo, don't forget to **star it**!
 
